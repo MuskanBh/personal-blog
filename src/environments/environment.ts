@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  WORDPRESS_REST_URL: 'http://localhost/staging/2023/01/25/'
+  WORDPRESS_REST_URL: 'http://localhost/staging/wp-json/wp/v2/'
  };

@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IPost } from './../post.model';
+
+
 const POSTS_URL = 'posts';
+//  const api_URL = WORDPRESS_REST_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +21,11 @@ export class WordpressService {
     if(this.posts){
       return of(this.posts)
     }
-    return this.http.get<IPost[]>('${environment.WORDPRESS_REST_URL} $ {POSTS_URL}')
+    return this.http.get<IPost[]>('http://localhost/staging/wp-json/wp/v2/posts')
     .pipe(tap(
       (posts) => this.posts = posts
     ));
+
   }
   getPost(id: number){
     if(this.posts){

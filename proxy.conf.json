@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://localhost/staging",
+    "secure": false
+  }
+}
