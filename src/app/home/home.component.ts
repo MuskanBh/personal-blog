@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //import { WordpressService } from './../core/wordpress.service';
-import { HttpClient } from '@angular/common/http';
+import { WordpressService } from '../core/wordpress.service';
 
 @Component({
   selector: 'pb-home',
@@ -9,14 +9,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit{
   // posts$= this.wordpressService.getPosts();
-  post: any;
+  post= this.wordpressService.getPosts();
   apiUrl='http://localhost/staging/wp-json/wp/v2/posts'
 
-  constructor(private http:HttpClient){
+  constructor(private wordpressService: WordpressService){
 
   }
   ngOnInit(): void {
-    this.http.get(this.apiUrl)
-    .subscribe((data)=> this.post = data);
+    // this.post = this.wordpressService.getPosts();
   }
 }

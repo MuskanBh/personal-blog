@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { IPost } from './../post.model';
 
 
@@ -12,32 +11,20 @@ const POSTS_URL = 'posts';
   providedIn: 'root'
 })
 export class WordpressService {
-  posts: IPost[] =[];
+  // posts: IPost[] =[];
   posts$: Subject<IPost> = new Subject();
-
+  posts: any;
+  apiUrl='http://localhost/staging/wp-json/wp/v2/posts'
   constructor(private http: HttpClient) { }
 
-  getPosts(): Observable<IPost[]>{
-    if(this.posts){
-      return of(this.posts)
-    }
-    return this.http.get<IPost[]>('http://localhost/staging/wp-json/wp/v2/posts')
-    .pipe(tap(
-      (posts) => this.posts = posts
-    ));
-
+  getPosts(){
+   this.http.get(this.apiUrl)
+    .subscribe((data)=> this.posts = data);
+    return this.posts;
   }
   getPost(id: number){
-    if(this.posts){
-      const post = this.posts.find(
-        p => p.id === id
-      );
-      if(post){
-        this.posts$.next(post);
-      }
-    }
-    this.http.get<IPost>('${environment.WORDPRESS_REST_URL}${POSTS_URL}/${id}')
-      .subscribe(post => this.posts$.next(post));
+    this.http.get(this.apiUrl)
+      .subscribe(post => this.posts.index);
     console.log(this.posts)
   }
 }
